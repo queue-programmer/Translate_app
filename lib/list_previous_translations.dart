@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:translate2_0/translate_class.dart';
+import 'package:translate2_0/Classes/translate_class.dart';
 import 'translate_language.dart';
 
 class transList extends StatefulWidget {
@@ -10,7 +10,59 @@ class transList extends StatefulWidget {
 }
 
 class _transListState extends State<transList> {
-  List<Translate> _items = [];
+  List<Translate> _items = [
+    Translate(
+      "yellowish",
+      "jaunâtre",
+      true,
+    ),
+    Translate(
+      "to spew out",
+      "cracher",
+      false,
+    ),
+    Translate(
+      "pour combler",
+      "to fill",
+      false,
+    ),
+    Translate(
+      "frisson",
+      "thrill",
+      false,
+    ),
+    Translate(
+      "chime",
+      "carillon",
+      true,
+    ),
+    Translate(
+      "gaz de chiste",
+      "shale gas",
+      false,
+    ),
+    Translate(
+      "a bold statement",
+      "une déclaration audacieuse",
+      true,
+    ),
+    Translate(
+      "slick",
+      "nappe",
+      false,
+    ),
+    Translate(
+      "sketch",
+      "dessin",
+      false,
+    ),
+    Translate(
+      "serve",
+      "desservir",
+      false,
+    ),
+  ];
+
 
   Widget _displayCard(int index){
     return Card(
@@ -47,9 +99,9 @@ class _transListState extends State<transList> {
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.star_border,
+                _items[index].isStarred ? Icons.star : Icons.star_border,
                 size: 23.0,
-                color: Colors.grey[700],
+                color: _items[index].isStarred ? Colors.blue[600] : Colors.grey[700],
               ),
             )
           ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:translate2_0/ac_button.dart';
 
 class transText extends StatefulWidget {
 
@@ -39,28 +38,24 @@ class _transTextState extends State<transText> {
                     ),
                   ),
                 ),
-                Row(
-
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      acButton(
-                        icon: Icons.camera_alt,
-                        text: "Camera",
-                      ),
-                      acButton(
-                        icon: Icons.brush,
-                        text: "Handwriting",
-                      ),
-                      acButton(
-                        icon: Icons.chat,
-                        text: "Conversation",
-                      ),
-                      acButton(
-                        icon: Icons.keyboard_voice,
-                        text: "Voice",
-                      ),
-                    ],
-                ),
+                // Row(
+                //
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: <Widget>[
+                //       acButton(
+                //         icon: Icons.camera_alt,
+                //         text: "Camera",
+                //       ),
+                //       acButton(
+                //         icon: Icons.chat,
+                //         text: "Conversation",
+                //       ),
+                //       acButton(
+                //         icon: Icons.mic_rounded,
+                //         text: "Transcribe",
+                //       ),
+                //     ],
+                // ),
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translate2_0/choose_language.dart';
+import 'package:translate2_0/list_previous_translations.dart';
 import 'package:translate2_0/translate_language.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +23,8 @@ class _HomePageState extends State<HomePage> {
             Container(
               margin: EdgeInsets.only(bottom:  8.0),
               child: transText(),
-            )
+            ),
+            transList(),
         ],
       ),
     );

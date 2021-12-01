@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:translate2_0/Classes/language_class.dart';
+import 'package:translate2_0/Screen/language_page.dart';
 
 class Language extends StatefulWidget {
 
@@ -8,18 +10,52 @@ class Language extends StatefulWidget {
 
 class _LanguageState extends State<Language> {
 
-  String _firstLanguage = "English";
-  String _secondLanguage = "French";
+  Language_class _firstLanguage = Language_class('en', 'English', true, true, true);
+  Language_class _secondLanguage = Language_class('de', 'German', false, false, true);
 
   void _switchLanguage(){
 
-    String first = _firstLanguage;
-    String second = _secondLanguage;
+    Language_class first = _firstLanguage;
+    Language_class second = _secondLanguage;
 
     setState(() {
       _firstLanguage = second;
       _secondLanguage = first;
     });
+  }
+
+  void setLanguage(Language_class firstLan, Language_class secondLan ){
+    setState(() {
+      _firstLanguage = firstLan;
+      _secondLanguage = secondLan;
+    });
+
+  }
+
+  void _chooseFirstLanguage(String title, bool isAutomaticEnabled) async{
+    final language = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => lanPage(title: title, isAutomaticEnabled: isAutomaticEnabled),
+        ),
+    );
+    if (language != null){
+      setLanguage(language, _secondLanguage);
+
+    }
+  }
+
+  void _chooseSecondLanguage(String title, bool isAutomaticEnabled) async{
+    final language = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => lanPage(title: title, isAutomaticEnabled: isAutomaticEnabled),
+      ),
+    );
+    if (language != null){
+      setLanguage(_firstLanguage, language);
+
+    }
   }
 
   @override
@@ -44,10 +80,12 @@ class _LanguageState extends State<Language> {
             child: Material(
               color: Colors.white,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                    _chooseFirstLanguage("Translate from", true);
+                },
                 child: Center(
                   child: Text(
-                  this._firstLanguage,
+                  this._firstLanguage.name,
                   style: TextStyle(
                     color: Colors.blue[600],
                     fontSize: 15.0,
@@ -75,10 +113,12 @@ class _LanguageState extends State<Language> {
            child: Material(
              color: Colors.white,
              child: InkWell(
-              onTap: () {},
+              onTap: () {
+                  _chooseSecondLanguage("Translate to", true);
+              },
               child: Center(
                 child: Text(
-                this._secondLanguage,
+                this._secondLanguage.name,
                 style: TextStyle(
                   color: Colors.blue[600],
                   fontSize: 15.0,
