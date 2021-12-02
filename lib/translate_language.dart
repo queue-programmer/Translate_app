@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:translate2_0/Classes/data_model.dart';
+
+import 'ac_button.dart';
 
 class transText extends StatefulWidget {
 
@@ -9,6 +13,7 @@ class transText extends StatefulWidget {
 class _transTextState extends State<transText> {
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<DataModel>(context, listen: false);
     return Card(
         color: Colors.white,
         margin: EdgeInsets.all(0.0),
@@ -29,11 +34,16 @@ class _transTextState extends State<transText> {
                           right: 16.0,
                           top: 16.0
                       ),
-                      child: Text(
-                        "Enter text",
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                        ),
+                      child: TextField(
+                        controller: provider.textEditingController,
+                        maxLines: 6,
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (newValue){
+                          print(newValue);
+
+                          provider.translate(provider.secondLanguage.code,
+                              provider.firstLanguage.code);
+                        },
                       ),
                     ),
                   ),

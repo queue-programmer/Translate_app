@@ -145,6 +145,7 @@ class _lanPageState extends State<lanPage> {
 
   _sendBackLanguage(Language_class language) {
     Navigator.pop(context, language);
+
   }
 
   Widget? _displayDeleteTextIcon() {

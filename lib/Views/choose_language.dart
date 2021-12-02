@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:translate2_0/Classes/data_model.dart';
 import 'package:translate2_0/Classes/language_class.dart';
 import 'package:translate2_0/Screen/language_page.dart';
 
@@ -10,27 +12,27 @@ class Language extends StatefulWidget {
 
 class _LanguageState extends State<Language> {
 
-  Language_class _firstLanguage = Language_class('en', 'English', true, true, true);
-  Language_class _secondLanguage = Language_class('de', 'German', false, false, true);
+  // Language_class _firstLanguage = Language_class('en', 'English', true, true, true);
+  // Language_class _secondLanguage = Language_class('de', 'German', false, false, true);
 
-  void _switchLanguage(){
+  // void _switchLanguage(){
+  //
+  //   Language_class first = _firstLanguage;
+  //   Language_class second = _secondLanguage;
+  //
+  //   setState(() {
+  //     _firstLanguage = second;
+  //     _secondLanguage = first;
+  //   });
+  // }
 
-    Language_class first = _firstLanguage;
-    Language_class second = _secondLanguage;
-
-    setState(() {
-      _firstLanguage = second;
-      _secondLanguage = first;
-    });
-  }
-
-  void setLanguage(Language_class firstLan, Language_class secondLan ){
-    setState(() {
-      _firstLanguage = firstLan;
-      _secondLanguage = secondLan;
-    });
-
-  }
+  // void setLanguage(Language_class firstLan, Language_class secondLan ){
+  //   setState(() {
+  //     _firstLanguage = firstLan;
+  //     _secondLanguage = secondLan;
+  //   });
+  //
+  // }
 
   void _chooseFirstLanguage(String title, bool isAutomaticEnabled) async{
     final language = await Navigator.push(
@@ -40,7 +42,9 @@ class _LanguageState extends State<Language> {
         ),
     );
     if (language != null){
-      setLanguage(language, _secondLanguage);
+      // setLanguage(language, _secondLanguage);
+      var provider = Provider.of<DataModel>(context, listen: false);
+      provider.setLanguage(language, provider.secondLanguage);
 
     }
   }
@@ -53,13 +57,17 @@ class _LanguageState extends State<Language> {
       ),
     );
     if (language != null){
-      setLanguage(_firstLanguage, language);
+      // setLanguage(_firstLanguage, language);
+      var provider = Provider.of<DataModel>(context, listen: false);
+      provider.setLanguage(provider.firstLanguage, language);
 
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<DataModel>(context);
+
     return Container(
       height: 55.0,
       decoration: BoxDecoration(
@@ -85,7 +93,7 @@ class _LanguageState extends State<Language> {
                 },
                 child: Center(
                   child: Text(
-                  this._firstLanguage.name,
+                  provider.firstLanguage.name,
                   style: TextStyle(
                     color: Colors.blue[600],
                     fontSize: 15.0,
@@ -104,7 +112,7 @@ class _LanguageState extends State<Language> {
               color: Colors.grey[700],
             ),
           onPressed: () {
-              _switchLanguage();
+              provider.switchLanguage();
           },
         ),
       ),
@@ -118,7 +126,7 @@ class _LanguageState extends State<Language> {
               },
               child: Center(
                 child: Text(
-                this._secondLanguage.name,
+                provider.secondLanguage.name,
                 style: TextStyle(
                   color: Colors.blue[600],
                   fontSize: 15.0,

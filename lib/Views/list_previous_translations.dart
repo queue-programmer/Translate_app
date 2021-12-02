@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:translate2_0/Classes/translate_class.dart';
-import 'translate_language.dart';
+import '../translate_language.dart';
 
 class transList extends StatefulWidget {
   const transList({Key? key}) : super(key: key);
