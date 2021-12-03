@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:translate2_0/Classes/language_class.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
-import '../language_list.dart';
+import '../Views/language_list.dart';
 
 
 

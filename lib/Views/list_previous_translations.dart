@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:translate2_0/Classes/data_model.dart';
 import 'package:translate2_0/Classes/translate_class.dart';
 import '../translate_language.dart';
 
@@ -10,61 +12,13 @@ class transList extends StatefulWidget {
 }
 
 class _transListState extends State<transList> {
-  List<Translate> _items = [
-    Translate(
-      "yellowish",
-      "jaunâtre",
-      true,
-    ),
-    Translate(
-      "to spew out",
-      "cracher",
-      false,
-    ),
-    Translate(
-      "pour combler",
-      "to fill",
-      false,
-    ),
-    Translate(
-      "frisson",
-      "thrill",
-      false,
-    ),
-    Translate(
-      "chime",
-      "carillon",
-      true,
-    ),
-    Translate(
-      "gaz de chiste",
-      "shale gas",
-      false,
-    ),
-    Translate(
-      "a bold statement",
-      "une déclaration audacieuse",
-      true,
-    ),
-    Translate(
-      "slick",
-      "nappe",
-      false,
-    ),
-    Translate(
-      "sketch",
-      "dessin",
-      false,
-    ),
-    Translate(
-      "serve",
-      "desservir",
-      false,
-    ),
-  ];
 
+  Color _faveColor = Colors.yellow;
+  Color _notFaveColor = Colors.grey;
 
-  Widget _displayCard(int index){
+  Widget _displayCard(int index, BuildContext context){
+    var provider = Provider.of<DataModel>(context, listen: false);
+
     return Card(
       child: Container(
         height: 80.0,
@@ -78,7 +32,8 @@ class _transListState extends State<transList> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
-                    _items[index].text,
+                    provider.history[provider.history.length - index - 1].translation.source,
+                    // _items[index].text,
                     style: TextStyle(
                       fontWeight: FontWeight.w600
                     ),
@@ -86,7 +41,8 @@ class _transListState extends State<transList> {
                       overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    _items[index].translatedText,
+                    provider.history[provider.history.length - index - 1].translation.text,
+                    // _items[index].translatedText,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
                     ),
@@ -97,13 +53,18 @@ class _transListState extends State<transList> {
               ),
             ),
             IconButton(
-              onPressed: () {},
-              icon: Icon(
-                _items[index].isStarred ? Icons.star : Icons.star_border,
-                size: 23.0,
-                color: _items[index].isStarred ? Colors.blue[600] : Colors.grey[700],
-              ),
-            )
+              icon: Icon(Icons.star),
+              color: provider.history[provider.history.length - index - 1].isFavorite ? _faveColor: _notFaveColor,
+              tooltip: "Add to Favourite!",
+              onPressed: () {
+                provider.faveoriteSpes(provider.history.length - index - 1);
+              },
+              // icon: Icon(
+              //   _items[index].isStarred ? Icons.star : Icons.star_border,
+              //   size: 23.0,
+              //   color: _items[index].isStarred ? Colors.yellow : Colors.grey[700],
+              // ),
+            ),
           ],
         ),
       ),
@@ -112,11 +73,13 @@ class _transListState extends State<transList> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<DataModel>(context);
+
     return Expanded(
       child: ListView.builder(
-          itemCount: _items.length,
+          itemCount: provider.history.length,
           itemBuilder: (BuildContext ctxt, int index){
-        return _displayCard(index);
+        return _displayCard(index, context);
         },
       ),
     );

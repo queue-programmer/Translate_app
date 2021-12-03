@@ -10,6 +10,10 @@ class TranslationCard extends StatefulWidget {
 }
 
 class _TranslationCardState extends State<TranslationCard> {
+
+  Color _faveColor = Colors.yellow;
+  Color _notFaveColor = Colors.grey;
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<DataModel>(context);
@@ -24,18 +28,23 @@ class _TranslationCardState extends State<TranslationCard> {
           children: [
             Row(
               children: [
-                Text(provider.currentTranslation!.targetLanguage.name),
+                Text(provider.currentTranslation!.translation.targetLanguage.name),
                 Spacer(),
-                IconButton(onPressed: () {},
-                    icon: Icon(
-                      Icons.star_outline
-                    ),
+                IconButton(
+                  icon: Icon(Icons.star),
+                  color: provider.currentTranslation!.isFavorite ? _faveColor:
+                      _notFaveColor,
+                  tooltip: "Add to Favourite!",
+
+                  onPressed: () {
+                    provider.favoriteCheck();
+                  },
                 ),
               ],
             ),
-            Text(provider.currentTranslation!.text),
+            Text(provider.currentTranslation!.translation.text),
             Spacer(),
-            Text(provider.currentTranslation!.source),
+            Text(provider.currentTranslation!.translation.source),
             Spacer()
           ],
         ),

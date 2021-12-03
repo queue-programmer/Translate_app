@@ -39,10 +39,12 @@ class _transTextState extends State<transText> {
                         maxLines: 6,
                         textInputAction: TextInputAction.done,
                         onSubmitted: (newValue){
-                          print(newValue);
-
-                          provider.translate(provider.secondLanguage.code,
-                              provider.firstLanguage.code);
+                          provider.addToHistory();
+                          // provider.translate(provider.secondLanguage.code,
+                          //     provider.firstLanguage.code);
+                        },
+                        onChanged: (newValue){
+                          provider.onFlyTrans(newValue);
                         },
                       ),
                     ),
