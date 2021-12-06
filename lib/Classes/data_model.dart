@@ -30,8 +30,8 @@ class DataModel extends ChangeNotifier{
 
   GoogleTranslator translator = GoogleTranslator();
 
-  // Translation? currentTranslation = null;
-  Translate? currentTranslation = null;
+  Translation? currentTranslation = null;
+  Translate? currentTranslationClass = null;
 
   List<Translate> history = [];
 
@@ -44,20 +44,26 @@ class DataModel extends ChangeNotifier{
   void translate(String to, String from){
 
     translator.translate(textEditingController.text,from: from, to: to).then((value) {
-      // currentTranslation = value;
-      currentTranslation = Translate(value);
+      currentTranslation = value;
+      currentTranslationClass = Translate(currentTranslation!.text, currentTranslation!.source);
       notifyListeners();
       },
     );
   }
 
   void addToHistory(){
-    history.add(currentTranslation!);
+    if(!history.contains(currentTranslationClass)){
+      history.add(currentTranslationClass!);
+    }
+    // history.add(Translate(currentTranslation!.text, currentTranslation!.source));
     notifyListeners();
   }
 
   void favoriteCheck(){
-    currentTranslation!.setFavorite();
+    currentTranslationClass!.setFavorite();
+    if(!history.contains(currentTranslationClass)){
+      history.add(currentTranslationClass!);
+    }
     notifyListeners();
   }
 

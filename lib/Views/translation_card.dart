@@ -28,11 +28,11 @@ class _TranslationCardState extends State<TranslationCard> {
           children: [
             Row(
               children: [
-                Text(provider.currentTranslation!.translation.targetLanguage.name),
+                Text(provider.currentTranslation!.targetLanguage.name),
                 Spacer(),
                 IconButton(
                   icon: Icon(Icons.star),
-                  color: provider.currentTranslation!.isFavorite ? _faveColor:
+                  color: provider.currentTranslationClass!.isFavorite ? _faveColor:
                       _notFaveColor,
                   tooltip: "Add to Favourite!",
 
@@ -42,9 +42,9 @@ class _TranslationCardState extends State<TranslationCard> {
                 ),
               ],
             ),
-            Text(provider.currentTranslation!.translation.text),
+            Text(provider.currentTranslation!.text),
             Spacer(),
-            Text(provider.currentTranslation!.translation.source),
+            Text(provider.currentTranslation!.source),
             Spacer()
           ],
         ),

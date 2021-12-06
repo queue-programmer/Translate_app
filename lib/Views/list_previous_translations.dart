@@ -32,7 +32,7 @@ class _transListState extends State<transList> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text(
-                    provider.history[provider.history.length - index - 1].translation.source,
+                    provider.history[provider.history.length - index - 1].translationSource,
                     // _items[index].text,
                     style: TextStyle(
                       fontWeight: FontWeight.w600
@@ -41,7 +41,7 @@ class _transListState extends State<transList> {
                       overflow: TextOverflow.ellipsis,
                   ),
                   Text(
-                    provider.history[provider.history.length - index - 1].translation.text,
+                    provider.history[provider.history.length - index - 1].translationText,
                     // _items[index].translatedText,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,

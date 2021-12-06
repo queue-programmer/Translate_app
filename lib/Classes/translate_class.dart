@@ -2,18 +2,12 @@
 import 'package:translator/translator.dart';
 
 class Translate {
-  Translation translation;
+  String translationText;
+  String translationSource;
 
-  bool isFavorite = false;
-  // late String text;
-  // late String translatedText;
-  // late bool isStarred;
+  bool isFavorite;
 
-  Translate(this.translation){
-
-    // this.text = text;
-    // this.translatedText = translatedText;
-    // this.isStarred = isStarred;
+  Translate(this.translationText, this.translationSource,[this.isFavorite = false]){
   }
 
   void setFavorite(){
