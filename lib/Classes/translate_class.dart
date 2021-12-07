@@ -14,4 +14,16 @@ class Translate {
 
     this.isFavorite = !this.isFavorite;
   }
+
+  Translate.fromJson(Map<String, dynamic> json)
+    : translationText = json ['translationText'],
+      translationSource = json['translationSource'],
+      isFavorite = json['isFavorite'];
+
+    Map<String, dynamic> toJson() => {
+      'translationText': translationText,
+      'translationsource' : translationSource,
+      'isFavorite' : isFavorite
+  };
+
 }

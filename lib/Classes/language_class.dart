@@ -14,4 +14,32 @@ class Language_class{
     this.isDownloaded = isDownloaded;
     this.isDownloadable = isDownloadable;
   }
+
+  // Language_class.fromJson(Map<String, dynamic> json)
+  //     : name = json ['name'],
+  //       code = json['code'];
+  //
+  // Map<String, dynamic> toJson() => {
+  //   'name': name,
+  //   'code': code,
+  // };
 }
+
+// class User {
+//   String name;
+//   String age;
+//   String location;
+//
+//   User();
+//
+//   User.fromJson(Map<String, dynamic> json)
+//       : name = json['name'],
+//         age = json['age'],
+//         location = json['location'];
+//
+//   Map<String, dynamic> toJson() => {
+//     'name': name,
+//     'age': age,
+//     'location': location,
+//   };
+// }

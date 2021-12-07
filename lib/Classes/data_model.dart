@@ -1,7 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translate2_0/Classes/translate_class.dart';
 import 'package:translator/translator.dart';
-
 import 'language_class.dart';
 
 class DataModel extends ChangeNotifier{
@@ -9,6 +10,10 @@ class DataModel extends ChangeNotifier{
 
   Language_class firstLanguage = Language_class('en', 'English', true, true, true);
   Language_class secondLanguage = Language_class('de', 'German', false, false, true);
+
+  DataModel(){
+    // getHistoryFromLocalSave();
+  }
 
   void setLanguage(Language_class first, Language_class second){
 
@@ -55,7 +60,8 @@ class DataModel extends ChangeNotifier{
     if(!history.contains(currentTranslationClass)){
       history.add(currentTranslationClass!);
     }
-    // history.add(Translate(currentTranslation!.text, currentTranslation!.source));
+    jsonTest();
+    // getHistoryFromLocalSave();
     notifyListeners();
   }
 
@@ -64,11 +70,43 @@ class DataModel extends ChangeNotifier{
     if(!history.contains(currentTranslationClass)){
       history.add(currentTranslationClass!);
     }
+    // getHistoryFromLocalSave();
     notifyListeners();
   }
 
   void faveoriteSpes(int index){
     history[index].setFavorite();
+    jsonTest();
+    // getHistoryFromLocalSave();
         notifyListeners();
+  }
+
+  void jsonTest(){
+    var json = jsonEncode(history.map((e) => e.toJson()).toList());
+    print(json);
+
+    var jsonStringHistory = jsonDecode(json) as Iterable<dynamic>;
+
+    var newHistory = List<Translate>.of(jsonStringHistory.map((e) => Translate.fromJson(e)));
+    print(newHistory);
+  }
+
+  void localSave()async{
+    final prefs = await SharedPreferences.getInstance();
+
+    var json = jsonEncode(history.map((e) => e.toJson()).toList());
+
+    prefs.setString('HistoricalKey', json);
+  }
+
+  void getHistoryFromLocalSave()async{
+    final prefs = await SharedPreferences.getInstance();
+
+    var json = prefs.getString('HistoricalKey');
+    if( json != null && json != ""){
+      var jsonStringHistory = jsonDecode(json) as Iterable<dynamic>;
+
+      var history = List<Translate>.of(jsonStringHistory.map((e) => Translate.fromJson(e)));
+    }
   }
 }
