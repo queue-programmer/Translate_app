@@ -1,4 +1,3 @@
-
 import 'package:translator/translator.dart';
 
 class Translate {
@@ -22,7 +21,7 @@ class Translate {
 
     Map<String, dynamic> toJson() => {
       'translationText': translationText,
-      'translationsource' : translationSource,
+      'translationSource' : translationSource,
       'isFavorite' : isFavorite
   };
 

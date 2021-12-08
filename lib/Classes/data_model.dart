@@ -12,7 +12,7 @@ class DataModel extends ChangeNotifier{
   Language_class secondLanguage = Language_class('de', 'German', false, false, true);
 
   DataModel(){
-    // getHistoryFromLocalSave();
+    getHistoryFromLocalSave();
   }
 
   void setLanguage(Language_class first, Language_class second){
@@ -59,9 +59,9 @@ class DataModel extends ChangeNotifier{
   void addToHistory(){
     if(!history.contains(currentTranslationClass)){
       history.add(currentTranslationClass!);
+      // jsonTest();
+      localSave();
     }
-    jsonTest();
-    // getHistoryFromLocalSave();
     notifyListeners();
   }
 
@@ -69,15 +69,15 @@ class DataModel extends ChangeNotifier{
     currentTranslationClass!.setFavorite();
     if(!history.contains(currentTranslationClass)){
       history.add(currentTranslationClass!);
+      localSave();
     }
-    // getHistoryFromLocalSave();
     notifyListeners();
   }
 
   void faveoriteSpes(int index){
     history[index].setFavorite();
-    jsonTest();
-    // getHistoryFromLocalSave();
+    // jsonTest();
+    localSave();
         notifyListeners();
   }
 
@@ -106,7 +106,8 @@ class DataModel extends ChangeNotifier{
     if( json != null && json != ""){
       var jsonStringHistory = jsonDecode(json) as Iterable<dynamic>;
 
-      var history = List<Translate>.of(jsonStringHistory.map((e) => Translate.fromJson(e)));
+      history = List<Translate>.of(jsonStringHistory.map((e) => Translate.fromJson(e)));
+      notifyListeners();
     }
   }
 }
