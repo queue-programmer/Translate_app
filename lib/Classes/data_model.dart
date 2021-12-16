@@ -42,18 +42,32 @@ class DataModel extends ChangeNotifier{
 
   void onFlyTrans(String string){
     Future.delayed(Duration(milliseconds: 500), (){
-      translate(secondLanguage.code, firstLanguage.code);
+      if (string == textEditingController.text){
+        translate(secondLanguage.code, firstLanguage.code, string);
+      }
     });
   }
 
-  void translate(String to, String from){
+  void translate(String to, String from, String input ){
 
-    translator.translate(textEditingController.text,from: from, to: to).then((value) {
-      currentTranslation = value;
-      currentTranslationClass = Translate(currentTranslation!.text, currentTranslation!.source);
-      notifyListeners();
+    if (currentTranslation != null){
+      if (currentTranslation!.source != input){
+
+        translator.translate(input,from: from, to: to).then((value) {
+          currentTranslation = value;
+          currentTranslationClass = Translate(currentTranslation!.text, currentTranslation!.source);
+          notifyListeners();
+        },
+        );
+      }
+    } else{
+      translator.translate(input,from: from, to: to).then((value) {
+        currentTranslation = value;
+        currentTranslationClass = Translate(currentTranslation!.text, currentTranslation!.source);
+        notifyListeners();
       },
-    );
+      );
+    }
   }
 
   void addToHistory(){
